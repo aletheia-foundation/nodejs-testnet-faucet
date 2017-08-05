@@ -4,13 +4,10 @@ module.exports = function (app) {
   var EthereumTx = app.EthereumTx
   var generateErrorResponse = app.generateErrorResponse
   var configureWeb3 = app.configureWeb3
-  var validateCaptcha = app.validateCaptcha
 
   app.post('/', function (request, response) {
-    var recaptureResponse = request.body['captcha']
-    if (!recaptureResponse) return generateErrorResponse(response, {code: 500, title: 'Error', message: 'Invalid captcha'})
-    if (request.session.captcha !== recaptureResponse) {
-      return generateErrorResponse(response, {code: 500, title: 'Error', message: 'Invalid captcha'})
+    if (config.get('validateCaptcha')) {
+      return validateCaptcha(request, response)
     }
     var receiver = request.body.receiver
 
@@ -18,6 +15,15 @@ module.exports = function (app) {
       configureWeb3Response(err, web3, receiver, response)
     })
   })
+
+  function validateCaptcha (request, response) {
+    var recaptureResponse = request.body['captcha']
+    if (!recaptureResponse) return generateErrorResponse(response, {code: 500, title: 'Error', message: 'Invalid captcha'})
+
+    if (request.session.captcha !== recaptureResponse) {
+      return generateErrorResponse(response, {code: 500, title: 'Error', message: 'Invalid captcha'})
+    }
+  }
 
   function configureWeb3Response (err, web3, receiver, response) {
     if (err) return generateErrorResponse(response, err)
@@ -52,7 +58,9 @@ module.exports = function (app) {
   }
 
   function sendRawTransactionResponse (err, hash, response) {
-    if (err) return generateErrorResponse(response, err)
+    if (err) {
+      return generateErrorResponse(response, {message: 'Error sending transaction'})
+    }
 
     var successResponse = {
       code: 200,
