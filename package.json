@@ -1,19 +1,18 @@
 {
-  "name": "oracles-faucet",
+  "name": "nodejs-faucet",
   "version": "1.0.0",
-  "description": "Oracles network faucet",
+  "description": "nodejs ethereum faucet",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "sass": "gulp sass",
-    "javascript": "gulp javascript",
-    "watch": "gulp watch"
+    "start": "./node_modules/.bin/gulp watch",
+    "server": "node index.js",
+    "testrpc": "./node_modules/.bin/testrpc"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oraclesorg/oracles-faucet"
+    "url": "https://github.com/aletheia-foundation/oracles-faucet"
   },
-  "author": "Oraclesorg",
+  "author": "aletheia-foundation",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.1",
@@ -26,10 +25,12 @@
     "web3": "^0.19.1"
   },
   "devDependencies": {
+    "ethereumjs-testrpc": "^4.0.1",
     "gulp": "^3.9.1",
     "gulp-add-src": "^0.2.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^2.3.0",
     "gulp-include": "^2.3.1",
     "gulp-order": "^1.1.1",
     "gulp-postcss": "^6.2.0",
@@ -37,7 +38,6 @@
     "gulp-sass-glob": "^1.0.6",
     "gulp-uglify": "^2.0.0",
     "gulp-uglifycss": "^1.0.6",
-    "gulp-concat-css": "^2.3.0",
     "http-server": "^0.9.0"
   }
 }

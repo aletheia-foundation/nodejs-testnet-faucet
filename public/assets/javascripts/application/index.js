@@ -24,7 +24,7 @@ $(function () {
         $('#receiver').val('')
         loader.addClass('hidden')
         swal('Success',
-				  "0.5 ETH is successfully transfered to <a href='http://devtestnet.oracles.org:4000/tx/" + data.success.txHash + "' target='blank'>" + receiver + '</a>',
+				  '0.5 ETH is successfully transfered to ' + receiver,
 				  'success'
 				)
         grecaptcha.reset()
