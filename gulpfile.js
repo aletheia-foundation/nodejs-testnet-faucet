@@ -11,6 +11,7 @@ const order = require('gulp-order')
 const concat = require('gulp-concat')
 const concatCss = require('gulp-concat-css')
 const uglify = require('gulp-uglify')
+const nodemon = require('nodemon')
 
 gulp.task('sass', function () {
   return gulp.src([
@@ -38,7 +39,18 @@ gulp.task('javascript', function () {
     .pipe(gulp.dest('public/assets/javascripts'))
 })
 
+gulp.task('nodemon', function () {
+  nodemon({
+    script: 'index.js',
+    ignore: 'public'
+  })
+})
+
 gulp.task('watch', function () {
   gulp.watch('public/assets/stylesheets/**/**/*.scss', ['sass'])
   gulp.watch('public/assets/javascripts/application/*.js', ['javascript'])
+  nodemon({
+    script: 'index.js',
+    ignore: 'public'
+  })
 })
