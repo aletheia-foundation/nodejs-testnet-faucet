@@ -6,9 +6,8 @@
     <link rel="apple-touch-icon" href="./favicons/favicon-192x192.png">
     <link rel="icon" type="image/png" sizes="192x192" href="./favicons/favicon-192x192.png">
     <link rel="mask-icon" color="#6151cc" href="./favicons/safari-pinned-tab.svg">
-    <link rel="manifest" href="./favicons/manifest.webmanifest">
+    <link rel="manifest" href="./favicons/manifest.json">
     <link href="./favicons/favicon.ico" rel="icon" type="image/x-icon">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
   <body>
     <header class="header">
@@ -19,16 +18,17 @@
     <section class="content">
       <form action="/" method="POST" id="faucetForm">
         <div class="request-tokens">
-          <h1>Oracles dev test network faucet</h1>
+            <h1>Oracles dev test network faucet</h1>
+            <label for="reciever">Your address</label>
             <input type="text" id="receiver" name="receiver" />
-            <h2>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br>
-              Duis laoreet eros nec rutrum. Suspendisse lorem in varius.
-            </h2>
+
+            <div class="text-xs-center">
+              <img src="captcha.svg"/>
+            </div>
+            <label for="captcha">Please retype the letters in the box</label>
+            <input type="text" id="captcha" name="captcha"/>
+
             <button type="submit" id="requestTokens" class="request-tokens-button">Request 0.5 ETH</button>
-        </div>
-        <div class="text-xs-center">
-          <div class="g-recaptcha" data-sitekey=""></div>
         </div>
       </form>
     </section>

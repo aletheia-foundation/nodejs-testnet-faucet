@@ -4,12 +4,9 @@
 
 1. Clone repository
 2. Update config.json `./config.json` (see config.json with placeholders below)
-3. Update `./public/index.html`: Find `<div class="g-recaptcha" data-sitekey="type your reCaptcha plugin secret here"></div>` line and type your reCaptcha plugin secret in `data-sitekey` attribute. For more info, [see](https://developers.google.com/recaptcha/docs/verify?hl=ru)
 4. `npm install` from project's root
-5. cd `./public`
-6. `npm install`
 7. `npm run sass`
-8. `npm run coffee`
+8. `npm run javascript`
 9. Go to project's root and run `npm start`. Oracles faucet will be launched at `http://localhost:5000`
 
 ### Server config.json (`./config.json`) with placeholders
@@ -17,9 +14,6 @@
 {
   "environment": "switcher between configurations: 'live' or 'dev'",
   "debug": "switch on/off server logs: true or false",
-  "Captcha": {
-    "secret": "type your reCAPTCHA plugin secret here"
-  },
   "Ethereum": {
     "etherToTransfer": "type amount of Ether to be sent from faucet here, for example 0.5",
     "gasLimit": "type Ethereum transaction gas limit here, for example, 0x7b0c",
