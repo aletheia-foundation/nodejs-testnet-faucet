@@ -59,6 +59,7 @@ module.exports = function (app) {
 
   function sendRawTransactionResponse (err, hash, response) {
     if (err) {
+      console.log(err)
       return generateErrorResponse(response, {message: 'Error sending transaction'})
     }
 

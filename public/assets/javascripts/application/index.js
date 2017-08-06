@@ -1,5 +1,11 @@
+
 $(function () {
+  console.log(window.location)
+  var parsed = simpleQueryString.parse(window.location.href)
+  $('#receiver').val(parsed.account)
+
   var loader = $('.loading-container')
+
   $('#faucetForm').submit(function (e) {
     e.preventDefault()
     	$this = $(this)
