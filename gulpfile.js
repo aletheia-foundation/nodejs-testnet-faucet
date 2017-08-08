@@ -46,9 +46,13 @@ gulp.task('nodemon', function () {
   })
 })
 
-gulp.task('watch', function () {
+gulp.task('build', function () {
   gulp.run('javascript')
   gulp.run('sass')
+})
+
+gulp.task('watch', function () {
+  gulp.run('build')
   gulp.watch('public/assets/stylesheets/**/**/*.scss', ['sass'])
   gulp.watch('public/assets/javascripts/application/*.js', ['javascript'])
   nodemon({
