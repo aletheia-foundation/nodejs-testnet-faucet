@@ -1,7 +1,5 @@
-module.exports = function (app) {
-  app.generateErrorResponse = generateErrorResponse
-
-  function generateErrorResponse (response, err) {
+module.exports = {
+  sendError: function sendError (response, err) {
 	    var out = {
 	      error: {
 	        code: err.code,
@@ -9,7 +7,6 @@ module.exports = function (app) {
 	        message: err.message
 	      }
 	    }
-	    console.log(err)
 	    response.send(out)
   }
 }

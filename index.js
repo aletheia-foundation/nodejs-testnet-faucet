@@ -3,17 +3,14 @@ var fs = require('fs')
 var https = require('https')
 var bodyParser = require('body-parser')
 var querystring = require('querystring')
-var Web3 = require('web3')
-var EthereumTx = require('ethereumjs-tx')
 var session = require('express-session')
 var config = require('config')
+global.P = global.Promise = require('bluebird')
 
 var app = express()
 app.fs = fs
 app.https = https
 app.querystring = querystring
-app.Web3 = Web3
-app.EthereumTx = EthereumTx
 
 app.use(express.static(__dirname + '/public'))
 app.use(session({
@@ -26,8 +23,6 @@ app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 
 require('./helpers/debug')(app)
-require('./helpers/generateResponse')(app)
-require('./helpers/blockchainHelper')(app)
 require('./controllers/index')(app)
 require('./controllers/captcha')(app)
 require('./controllers/getTxCallBack')(app)
