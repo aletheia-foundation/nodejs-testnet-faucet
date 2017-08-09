@@ -1,12 +1,9 @@
 {
-  "debug": false,
   "sessionSecret": "huehueverysecret",
   "validateCaptcha": false,
   "ethereum": {
     "etherToTransfer": 0.5,
     "gasLimit": "0x7b0c",
-    "rpc": "http://127.0.0.1:8545",
-    "account": "0x13e4109db975c670324b248cc71d8b429266018c",
-    "privateKey": "514e2d8e82d3728abfd60cdcb7a233575fe3252567f20e57b01ff23c17908ecd"
+    "rpc": "http://127.0.0.1:8545"
   }
 }

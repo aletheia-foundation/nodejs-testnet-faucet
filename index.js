@@ -22,7 +22,6 @@ app.use(session({
 app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 
-require('./helpers/debug')(app)
 require('./controllers/index')(app)
 require('./controllers/captcha')(app)
 require('./controllers/getTxCallBack')(app)
