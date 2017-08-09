@@ -1,5 +1,7 @@
 {
   "validateCaptcha": true,
-  "account": "0x7ac7cd5b8da8bd2b6349ad6ab8ecb356025a40ff",
+  "ethereum": {
+    "account": "0x7ac7cd5b8da8bd2b6349ad6ab8ecb356025a40ff"
+  },
   "sessionSecret": ""
 }
