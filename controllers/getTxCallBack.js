@@ -1,5 +1,7 @@
 const blockchainHelper = require('../helpers/blockchain-helper')
 const responseHelper = require('../helpers/response-helper')
+const log = require('winston')
+
 module.exports = function (app) {
   var getTxCallBack = app.getTxCallBack
 
@@ -14,7 +16,10 @@ module.exports = function (app) {
       })
     })
     .catch((err) => {
-      responseHelper.sendError(response, err)
+      log.error(err)
+      responseHelper.sendError(response, {
+        message: 'Error reading transaction status please reload the page and try again'
+      })
     })
   })
 }

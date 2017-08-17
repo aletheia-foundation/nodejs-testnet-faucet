@@ -1,6 +1,7 @@
 const config = require('config')
 const Web3 = require('web3')
 const EthereumTx = require('ethereumjs-tx')
+const log = require('winston')
 
 module.exports = {
   configureWeb3: function configureWeb3 () {
@@ -8,8 +9,7 @@ module.exports = {
       var web3
       if (typeof web3 !== 'undefined') web3 = new Web3(web3.currentProvider)
       else web3 = new Web3(new Web3.providers.HttpProvider(config.get('ethereum.rpc')))
-
-      if (!web3.isConnected()) return reject({code: 500, title: 'Error', message: 'check RPC'}, web3)
+      if (!web3.isConnected()) return reject({code: 500, title: 'Error', message: 'unable to connect to ethereum rpc'})
 
       return resolve(web3)
     })
@@ -18,7 +18,7 @@ module.exports = {
     return this.configureWeb3().then((web3) => {
       return new P((resolve, reject) => {
         web3.eth.getTransaction(txHash, (err, txDetails) => {
-          console.log('getTransaction done', txDetails)
+          log.debug('getTransaction done', txDetails)
           if (err) {
             return reject(err)
           }
@@ -44,7 +44,7 @@ module.exports = {
           gasLimit: config.get('ethereum.gasLimit'),
           gasPrice: gasPrice
         }
-        console.log(`sending ${txArgs.value} wei from ${txArgs.from} to ${txArgs.to}`)
+        log.verbose(`sending ${txArgs.value} wei from ${txArgs.from} to ${txArgs.to}`)
         web3.eth.sendTransaction(txArgs, (err, hash) => {
           if (err) {
             return reject(err)

@@ -1,16 +1,37 @@
-var express = require('express')
-var fs = require('fs')
-var https = require('https')
-var bodyParser = require('body-parser')
-var querystring = require('querystring')
-var session = require('express-session')
-var config = require('config')
+const express = require('express')
+const fs = require('fs')
+const https = require('https')
+const bodyParser = require('body-parser')
+const querystring = require('querystring')
+const session = require('express-session')
+const config = require('config')
+const winston = require('winston')
+const expressWinston = require('express-winston')
+
 global.P = global.Promise = require('bluebird')
 
-var app = express()
+const app = express()
 app.fs = fs
 app.https = https
 app.querystring = querystring
+
+winston.level = 'verbose'
+app.use(expressWinston.logger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    })
+  ],
+  msg: 'HTTP {{req.method}} {{req.url}}',
+  expressFormat: true,
+  colorize: false,
+  ignoreRoute: function (req, res) {
+    if (req.method === 'GET' && req.path.startsWith('/assets')) {
+      return true
+    }
+  }
+}))
 
 app.use(express.static(__dirname + '/public'))
 app.use(session({
