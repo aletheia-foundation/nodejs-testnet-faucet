@@ -12,7 +12,7 @@ module.exports = function (app) {
     return blockchainHelper.sendEthTo({
       from: config.get('ethereum.account'),
       to: receiver,
-      amount: config.get('ethereum.etherToTransfer')
+      amountInEther: config.get('ethereum.etherToTransfer')
     })
     .then((hash) => {
       var successResponse = {

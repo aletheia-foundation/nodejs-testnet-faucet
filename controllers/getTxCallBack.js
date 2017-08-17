@@ -7,7 +7,6 @@ module.exports = function (app) {
     var txHash = request.body.txHash
     return blockchainHelper.getTxCallBack(txHash)
     .then(() => {
-      console.log('sending success')
       response.send({
         code: 200,
         title: 'Success',
@@ -15,7 +14,7 @@ module.exports = function (app) {
       })
     })
     .catch((err) => {
-      responseHelper.sendError(err)
+      responseHelper.sendError(response, err)
     })
   })
 }
