@@ -8,12 +8,19 @@ module.exports = function (app) {
   app.post('/getTxCallBack', function (request, response) {
     var txHash = request.body.txHash
     return blockchainHelper.getTxCallBack(txHash)
-    .then(() => {
-      response.send({
-        code: 200,
-        title: 'Success',
-        message: '0.5 ETH successfully sent'
-      })
+    .then((isMined) => {
+      if (isMined) {
+        response.send({
+          code: 200,
+          title: 'Success',
+          message: '0.5 ETH successfully sent'
+        })
+      } else {
+        response.send({
+          code: 302,
+          message: 'Transaction is not mined yet'
+        })
+      }
     })
     .catch((err) => {
       log.error(err)

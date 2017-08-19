@@ -21,14 +21,15 @@ module.exports = {
     return this.configureWeb3().then((web3) => {
       return new P((resolve, reject) => {
         web3.eth.getTransaction(txHash, (err, txDetails) => {
-          log.debug('getTransaction done', txDetails)
           if (err) {
             return reject(err)
           }
+          log.debug('getTransaction done', txDetails)
           if (!txDetails.blockNumber) {
-            return reject({code: 500, title: 'Warning', message: 'Tx is not signed yet', txDetails})
+            log.log('transaction is not mined yet', txDetails)
+            return resolve(false)
           }
-          return resolve()
+          return resolve(true)
         })
       })
     })

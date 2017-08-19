@@ -1,12 +1,12 @@
 module.exports = {
   sendError: function sendError (response, err) {
-	    var out = {
-	      error: {
-	        code: err.code || 500,
-	        title: err.title,
-	        message: err.message
-	      }
-	    }
-	    response.send(out)
+    const out = {
+      error: {
+        code: err.code,
+        title: err.title,
+        message: err.message
+      }
+    }
+    response.send(out)
   }
 }
