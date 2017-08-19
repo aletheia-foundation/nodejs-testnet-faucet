@@ -5,11 +5,10 @@ const log = require('winston')
 
 module.exports = function (app) {
   app.post('/', function (request, response) {
-    if (config.get('validateCaptcha')) {
-      return validateCaptcha(request, response)
+    if (config.get('validateCaptcha') && !isCaptchaValid(request)) {
+      return responseHelper.sendError(response, {code: 500, title: 'Error', message: 'Invalid captcha'})
     }
     const receiver = request.body.receiver
-
     return blockchainHelper.sendEthTo({
       from: config.get('ethereum.account'),
       to: receiver,
@@ -29,11 +28,9 @@ module.exports = function (app) {
       return responseHelper.sendError(response, {message: 'Error sending transaction'})
     })
   })
+}
 
-  function validateCaptcha (request, response) {
-    const recaptureResponse = request.body['captcha']
-    if (!recaptureResponse || request.session.captcha !== recaptureResponse) {
-      return responseHelper.sendError(response, {code: 500, title: 'Error', message: 'Invalid captcha'})
-    }
-  }
+function isCaptchaValid (request) {
+  const recaptureResponse = request.body['captcha']
+  return recaptureResponse && request.session.captcha === recaptureResponse
 }
