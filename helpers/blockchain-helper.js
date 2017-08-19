@@ -3,12 +3,16 @@ const Web3 = require('web3')
 const EthereumTx = require('ethereumjs-tx')
 const log = require('winston')
 
+var web3
+
 module.exports = {
   configureWeb3: function configureWeb3 () {
     return new P((resolve, reject) => {
-      const web3
-      if (typeof web3 !== 'undefined') web3 = new Web3(web3.currentProvider)
-      else web3 = new Web3(new Web3.providers.HttpProvider(config.get('ethereum.rpc')))
+      if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider)
+      } else {
+        web3 = new Web3(new Web3.providers.HttpProvider(config.get('ethereum.rpc')))
+      }
       if (!web3.isConnected()) return reject({code: 500, title: 'Error', message: 'unable to connect to ethereum rpc'})
       return resolve(web3)
     })
