@@ -2,7 +2,7 @@ module.exports = {
   sendError: function sendError (response, err) {
 	    var out = {
 	      error: {
-	        code: err.code,
+	        code: err.code || 500,
 	        title: err.title,
 	        message: err.message
 	      }
