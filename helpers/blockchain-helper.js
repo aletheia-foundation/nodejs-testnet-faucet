@@ -6,11 +6,10 @@ const log = require('winston')
 module.exports = {
   configureWeb3: function configureWeb3 () {
     return new P((resolve, reject) => {
-      var web3
+      const web3
       if (typeof web3 !== 'undefined') web3 = new Web3(web3.currentProvider)
       else web3 = new Web3(new Web3.providers.HttpProvider(config.get('ethereum.rpc')))
       if (!web3.isConnected()) return reject({code: 500, title: 'Error', message: 'unable to connect to ethereum rpc'})
-
       return resolve(web3)
     })
   },
@@ -23,7 +22,7 @@ module.exports = {
             return reject(err)
           }
           if (!txDetails.blockNumber) {
-            return reject({code: 500, title: 'Warning', message: 'Tx is not signed yet'})
+            return reject({code: 500, title: 'Warning', message: 'Tx is not signed yet', txDetails})
           }
           return resolve()
         })
@@ -36,7 +35,7 @@ module.exports = {
         if (!web3.isAddress(to)) {
           return reject({code: 500, title: 'Error', message: 'invalid address'})
         }
-        var gasPrice = parseInt(web3.eth.gasPrice)
+        const gasPrice = parseInt(web3.eth.gasPrice)
         const txArgs = {
           from: config.get('ethereum.account'),
           to: to,
