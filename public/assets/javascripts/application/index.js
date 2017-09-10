@@ -33,7 +33,6 @@ $(function () {
 				  '0.5 ETH is successfully transfered to ' + receiver,
 				  'success'
 				)
-        grecaptcha.reset()
       })
     }).fail(function (err) {
       console.log(err)

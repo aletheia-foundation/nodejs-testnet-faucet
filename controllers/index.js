@@ -8,6 +8,7 @@ module.exports = function (app) {
     if (config.get('validateCaptcha') && !isCaptchaValid(request)) {
       return responseHelper.sendError(response, {code: 500, title: 'Error', message: 'Invalid captcha'})
     }
+    request.session.captcha = ''
     const receiver = request.body.receiver
     return blockchainHelper.sendEthTo({
       from: config.get('ethereum.account'),

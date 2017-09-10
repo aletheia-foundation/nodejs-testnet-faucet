@@ -16,7 +16,7 @@ module.exports = function (app) {
           message: '0.5 ETH successfully sent'
         })
       } else {
-        response.send({
+        response.status(302).send({
           code: 302,
           message: 'Transaction is not mined yet'
         })
