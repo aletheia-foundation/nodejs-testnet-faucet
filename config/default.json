@@ -3,7 +3,6 @@
   "validateCaptcha": false,
   "ethereum": {
     "etherToTransfer": 0.5,
-    "gasLimit": "0x7b0c",
     "account": "",
     "rpc": "http://127.0.0.1:8545"
   }
