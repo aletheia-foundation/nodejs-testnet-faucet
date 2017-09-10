@@ -43,7 +43,7 @@ module.exports = {
         const txArgs = {
           from: config.get('ethereum.account'),
           to: to,
-          nonce: Math.random() * Number.MAX_SAFE_INTEGER,
+          nonce: Math.floor(Math.random() * 100000000),
           value: parseInt(web3.toWei(amountInEther, 'ether'))
         }
         log.verbose(`sending ${txArgs.value} wei from ${txArgs.from} to ${txArgs.to}`)
