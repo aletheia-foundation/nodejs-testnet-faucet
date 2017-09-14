@@ -24,6 +24,9 @@ module.exports = {
           if (err) {
             return reject(err)
           }
+          if (!txDetails) {
+            return reject({code: 500, title:'Error',message: `cannot find transaction ${txHash}`})
+          }
           log.debug('getTransaction done', txDetails)
           if (!txDetails.blockNumber) {
             log.log('transaction is not mined yet', txDetails)
