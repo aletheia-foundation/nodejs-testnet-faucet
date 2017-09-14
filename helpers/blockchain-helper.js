@@ -25,7 +25,7 @@ module.exports = {
             return reject(err)
           }
           if (!txDetails) {
-            return reject({code: 500, title:'Error',message: `cannot find transaction ${txHash}`})
+            return reject({code: 500, title:'Error', message: `cannot find transaction ${txHash}`})
           }
           log.debug('getTransaction done', txDetails)
           if (!txDetails.blockNumber) {
@@ -46,7 +46,6 @@ module.exports = {
         const txArgs = {
           from: config.get('ethereum.account'),
           to: to,
-          nonce: Math.floor(Math.random() * 100000000),
           value: parseInt(web3.toWei(amountInEther, 'ether'))
         }
         log.verbose(`sending ${txArgs.value} wei from ${txArgs.from} to ${txArgs.to}`)
