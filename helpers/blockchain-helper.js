@@ -34,20 +34,40 @@ module.exports = {
       })
     })
   },
-  sendEthTo: function sendEthTo ({from, to, amountInEther}) {
+  sendEthTo: function sendEthTo ({to, amountInEther}) {
     return this.configureWeb3().then((web3) => {
       return new P((resolve, reject) => {
         if (!web3.isAddress(to)) {
           return reject({code: 500, title: 'Error', message: 'invalid address'})
         }
-        const txArgs = {
-          from: config.get('ethereum.account'),
+
+        const senderPrivateKey = config.get('ethereum.privateKey')
+        const privateKeyHex = Buffer.from(senderPrivateKey, 'hex')
+
+        const fromAccount = config.get('ethereum.account')
+        const gasPrice = parseInt(web3.eth.gasPrice);
+        const gasPriceHex = web3.toHex(gasPrice);
+        const amount = parseInt(web3.toWei(amountInEther, 'ether'))
+        const nonce = web3.eth.getTransactionCount(fromAccount);
+        const nonceHex = web3.toHex(nonce);
+        const rawTx = {
+          nonce: nonceHex,
+          gasPrice: gasPriceHex,
+          gasLimit: config.get('ethereum.gasLimit'),
           to: to,
-          nonce: Math.floor(Math.random() * 100000000),
-          value: parseInt(web3.toWei(amountInEther, 'ether'))
-        }
-        log.verbose(`sending ${txArgs.value} wei from ${txArgs.from} to ${txArgs.to}`)
-        web3.eth.sendTransaction(txArgs, (err, hash) => {
+          value: web3.toHex(amount),
+          data: '0x00',
+          chainId: web3.toHex(web3.version.network)
+        };
+
+        var tx = new EthereumTx(rawTx);
+        tx.sign(privateKeyHex);
+
+        var serializedTx = tx.serialize();
+
+        log.verbose(`sending ${rawTx.value} wei from ${fromAccount} to ${rawTx.to} on chain ${rawTx.chainId}`)
+
+        web3.eth.sendRawTransaction("0x" + serializedTx.toString('hex'), function(err, hash) {
           if (err) {
             return reject(err)
           }

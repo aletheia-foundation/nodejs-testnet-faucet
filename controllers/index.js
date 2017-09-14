@@ -11,7 +11,6 @@ module.exports = function (app) {
     request.session.captcha = ''
     const receiver = request.body.receiver
     return blockchainHelper.sendEthTo({
-      from: config.get('ethereum.account'),
       to: receiver,
       amountInEther: config.get('ethereum.etherToTransfer')
     })

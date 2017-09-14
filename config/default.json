@@ -3,7 +3,9 @@
   "validateCaptcha": false,
   "ethereum": {
     "etherToTransfer": 0.5,
-    "account": "",
-    "rpc": "http://127.0.0.1:8545"
+    "account": "0x928659160d1cc8d21086ae5d2b9258451003a8fe",
+    "privateKey": "a326960933434554bba336b14e1f30f5f45ff778e7c7e6acdec0bee50a6e3e2f",
+    "rpc": "http://127.0.0.1:8545",
+    "gasLimit": "0x7b0c"
   }
 }
