@@ -4,7 +4,8 @@
   "description": "nodejs ethereum faucet",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/gulp build && node index.js",
+    "start": "npm run build && node index.js",
+    "build": "./node_modules/.bin/gulp build",
     "serve": " ./node_modules/.bin/gulp watch",
     "testrpc": "./node_modules/.bin/testrpc"
   },
