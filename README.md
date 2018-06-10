@@ -10,6 +10,8 @@ Several accounts and private keys will be output, leave this shell running.
 9. Go to project's root and run `npm start`. The faucet will be launched at `http://localhost:5000`
 
 ### Deployment
+
+#### Server Setup
 https://blog.codeship.com/running-node-js-linux-systemd/
 https://certsimple.com/blog/deploy-node-on-linux
 
@@ -20,13 +22,13 @@ https://certsimple.com/blog/deploy-node-on-linux
   After=network.target
 
   [Service]
-  ExecStart=/usr/bin/node /home/faucet-usr/nodejs-testnet-faucet/index.js
+  ExecStart=/usr/bin/node /home/faucet-daemon/nodejs-testnet-faucet/index.js
   Restart=always
-  User=faucet-usr
-  Group=faucet-usr
+  User=faucet-daemon
+  Group=faucet-daemon
   Environment=PATH=/usr/bin:/usr/local/bin
   Environment=NODE_ENV=production
-  WorkingDirectory=/home/faucet-usr/nodejs-testnet-faucet
+  WorkingDirectory=/home/faucet-daemon/nodejs-testnet-faucet
 
   [Install]
   WantedBy=multi-user.target
@@ -37,3 +39,8 @@ https://certsimple.com/blog/deploy-node-on-linux
   systemctl enable nodejs-faucet
   systemctl start nodejs-faucet
 ```
+
+
+#### Deploy via jenkins 
+instructions https://github.com/aletheia-foundation/aletheia-admin/tree/master/infrastructure#setup-jenkins-to-deploy-via-ssh
+
