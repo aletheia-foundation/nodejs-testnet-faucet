@@ -10,8 +10,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'scp -oStrictHostKeyChecking=no -r ./ aletheia-infrastructure.org:/var/www/nodejs-testnet-faucet/faucet'
-                sh 'ssh -oStrictHostKeyChecking=no aletheia-infrastructure.org bash sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
+                sh 'scp -oStrictHostKeyChecking=no -r ./ jenkins-deployer@aletheia-infrastructure.org:/var/www/nodejs-testnet-faucet/faucet'
+                sh 'ssh -oStrictHostKeyChecking=no jenkins-deployer@aletheia-infrastructure.org bash sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
 
             }
         }
