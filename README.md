@@ -15,29 +15,29 @@ Several accounts and private keys will be output, leave this shell running.
 https://blog.codeship.com/running-node-js-linux-systemd/
 https://certsimple.com/blog/deploy-node-on-linux
 
-`vim /etc/systemd/system/nodejs-faucet.service`
-```
+```bash
+
+sudo dd of=/etc/systemd/system/nodejs-faucet.service << EOF
   [Unit]
   Description=nodejs-faucet
   After=network.target
 
   [Service]
-  ExecStart=/usr/bin/node /home/faucet-daemon/nodejs-testnet-faucet/index.js
+  ExecStart=/usr/bin/node /var/www/nodejs-testnet-faucet/faucet/index.js
   Restart=always
   User=faucet-daemon
   Group=faucet-daemon
   Environment=PATH=/usr/bin:/usr/local/bin
   Environment=NODE_ENV=production
-  WorkingDirectory=/home/faucet-daemon/nodejs-testnet-faucet
+  WorkingDirectory=/var/www/nodejs-testnet-faucet/faucet/
 
   [Install]
   WantedBy=multi-user.target
-```
+EOF
 
-```bash
-  systemctl daemon-reload
-  systemctl enable nodejs-faucet
-  systemctl start nodejs-faucet
+sudo systemctl daemon-reload
+sudo systemctl enable nodejs-faucet
+sudo systemctl start nodejs-faucet
 ```
 
 
