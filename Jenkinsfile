@@ -6,12 +6,11 @@ pipeline {
             steps {
                 echo 'build step'
                 sh 'npm install'
-                sh 'npm build'
             }
         }
         stage('Deploy') {
             steps {
-                sh ''
+                sh 'scp -r ./ aletheia-infrastructure.org:/var/www/nodejs-testnet-faucet'
             }
         }
     }
