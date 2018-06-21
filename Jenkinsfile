@@ -10,10 +10,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                publishOverSsh {
-                    server('aletheia-infrastructure') {
-                        transferSet('.') {
-                            remoteDirectory('/var/www/nodejs-testnet-faucet/faucet')
+                sshPublisher {
+                    publishers {
+                        configName 'aletheia-infrastructure'
+                        verbose true
+                        transfers {
+                            sourceFiles '.'
+                            remoteDirectory '/var/www/nodejs-testnet-faucet/faucet'
                         }
                     }
                 }
