@@ -10,9 +10,15 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'scp -vv -oStrictHostKeyChecking=no -r ./ jenkins-deployer@aletheia-infrastructure.org:/var/www/nodejs-testnet-faucet/faucet'
-                sh 'ssh -vv -oStrictHostKeyChecking=no jenkins-deployer@aletheia-infrastructure.org bash sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
-
+                publishOverSsh {
+                    server('aletheia-infrastructure') {
+                        transferSet('.') {
+                            remoteDirectory('/var/www/nodejs-testnet-faucet/faucet')
+                        }
+                    }
+                }
+//                sh 'scp -vv -oStrictHostKeyChecking=no -r ./ jenkins-deployer@aletheia-infrastructure.org:/var/www/nodejs-testnet-faucet/faucet'
+//                sh 'ssh -vv -oStrictHostKeyChecking=no jenkins-deployer@aletheia-infrastructure.org bash sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
             }
         }
     }
