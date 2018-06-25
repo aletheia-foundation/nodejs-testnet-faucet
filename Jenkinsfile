@@ -11,18 +11,17 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshPublisher(
-                    publishers:[sshPublisherDesc(
+                    publishers: [sshPublisherDesc(
                             configName: 'aletheia-infrastructure',
                             verbose: true,
                             transfers: [ sshTransfer (
                                 sourceFiles: '.',
                                 remoteDirectory: '/var/www/nodejs-testnet-faucet/faucet'
-                            )]
+                            )],
+                            execCommand: 'sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
                     )]
 
                 )
-//                sh 'scp -vv -oStrictHostKeyChecking=no -r ./ jenkins-deployer@aletheia-infrastructure.org:/var/www/nodejs-testnet-faucet/faucet'
-//                sh 'ssh -vv -oStrictHostKeyChecking=no jenkins-deployer@aletheia-infrastructure.org bash sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
             }
         }
     }
