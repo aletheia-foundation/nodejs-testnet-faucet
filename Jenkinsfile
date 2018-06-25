@@ -15,9 +15,8 @@ pipeline {
                             configName: 'aletheia-infrastructure',
                             verbose: true,
                             transfers: [ sshTransfer (
-                                sourceFiles: '**/*.*',
-                                // use a double slash to make the file path absolute (this seems odd)
-                                remoteDirectory: '//var/www/nodejs-testnet-faucet/faucet',
+                                sourceFiles: '/**/*.*',
+                                remoteDirectory: '../../var/www/nodejs-testnet-faucet/faucet',
                                 execCommand: 'sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
                             )]
                     )]
