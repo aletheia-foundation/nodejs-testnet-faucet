@@ -15,10 +15,10 @@ pipeline {
                             configName: 'aletheia-infrastructure',
                             verbose: true,
                             transfers: [ sshTransfer (
-                                sourceFiles: '.',
-                                remoteDirectory: '/var/www/nodejs-testnet-faucet/faucet'
-                            )],
-                            execCommand: 'sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
+                                sourceFiles: '**/*.*',
+                                remoteDirectory: '/var/www/nodejs-testnet-faucet/faucet',
+                                execCommand: 'sudo /var/www/nodejs-testnet-faucet/restart-faucet.sh'
+                            )]
                     )]
 
                 )
